@@ -1,144 +1,122 @@
+
+Pom · XML
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+ 
 	<groupId>Company_Name</groupId>
 	<artifactId>Seleniumfreamworkdesign</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-
+ 
 	<name>Seleniumfreamworkdesign</name>
 	<url>http://maven.apache.org</url>
-
+ 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+ 
+		<!-- Java 17 (Selenium 4.x and TestNG 7.12 need Java 11+) -->
+		<maven.compiler.release>17</maven.compiler.release>
+ 
+		<!-- Default suite; each profile below overrides it -->
+		<suiteXmlFile>src/main/java/TestSuits/testng.xml</suiteXmlFile>
+ 
+		<!-- Plugin versions -->
+		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+		<maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
 	</properties>
-
+ 
 	<dependencies>
-
-
+ 
+		<!-- Selenium -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.49.0</version>
-			<scope>compile</scope>
 		</dependency>
-
-		<!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
+ 
+		<!-- TestNG: compile scope (no <scope> tag) because your test classes and
+			base classes live in src/main/java and import org.testng.* -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>7.12.0</version>
-			<scope>test</scope>
 		</dependency>
-
-		<!-- Source:
-		https://mvnrepository.com/artifact/com.aventstack/extentreports -->
-
-
-		<!-- Source:
-		https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+ 
+		<!-- Extent Reports -->
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>5.1.2</version>
-			<scope>compile</scope>
 		</dependency>
-
-		<!-- Source:
-		https://mvnrepository.com/artifact/com.github.bonigarcia/webdrivermanager -->
-		<!-- Source:
-		https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+ 
+		<!-- WebDriverManager -->
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
 			<version>6.3.4</version>
-			<scope>compile</scope>
 		</dependency>
-
-		<!-- Source:
-		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+ 
+		<!-- Jackson: uncomment ONLY if your own code reads JSON test data with it.
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.22.3</version>
-			<scope>compile</scope>
 		</dependency>
-
-
+		-->
+ 
 	</dependencies>
+ 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
+			</plugin>
+ 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.plugin.version}</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+ 
 	<profiles>
+		<!-- mvn test -PRegression -->
 		<profile>
-			<id>
-				Regression
-			</id>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-surefire-plugin</artifactId>
-							<version>2.19.1</version>
-							<configuration>
-								<suiteXmlFiles>
-									<suiteXmlFile>src/main/java/TestSuits/testng.xml</suiteXmlFile>
-								</suiteXmlFiles>
-							</configuration>
-						</plugin>
-
-					</plugins>
-				</pluginManagement>
-			</build>
-
+			<id>Regression</id>
+			<properties>
+				<suiteXmlFile>src/main/java/TestSuits/testng.xml</suiteXmlFile>
+			</properties>
 		</profile>
+ 
+		<!-- mvn test -PPurchaseorder -->
 		<profile>
-			<id>
-				Purchaseorder
-			</id>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-surefire-plugin</artifactId>
-							<version>2.19.1</version>
-							<configuration>
-								<suiteXmlFiles>
-									<suiteXmlFile>src/main/java/TestSuits/Group.xml</suiteXmlFile>
-								</suiteXmlFiles>
-							</configuration>
-						</plugin>
-
-					</plugins>
-				</pluginManagement>
-			</build>
+			<id>Purchaseorder</id>
+			<properties>
+				<suiteXmlFile>src/main/java/TestSuits/Group.xml</suiteXmlFile>
+			</properties>
 		</profile>
+ 
+		<!-- mvn test -PErrorhandeling -->
 		<profile>
-			<id>
-				Errorhandeling
-			</id>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-surefire-plugin</artifactId>
-							<version>2.19.1</version>
-							<configuration>
-								<suiteXmlFiles>
-									<suiteXmlFile>src/main/java/TestSuits/error.xml</suiteXmlFile>
-								</suiteXmlFiles>
-							</configuration>
-						</plugin>
-
-					</plugins>
-				</pluginManagement>
-			</build>
+			<id>Errorhandeling</id>
+			<properties>
+				<suiteXmlFile>src/main/java/TestSuits/error.xml</suiteXmlFile>
+			</properties>
 		</profile>
 	</profiles>
-	
+ 
 </project>
+ 
+Claude finished the response
