@@ -1,43 +1,40 @@
-
-Pom · XML
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
- 
+
 	<groupId>Company_Name</groupId>
 	<artifactId>Seleniumfreamworkdesign</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
- 
+
 	<name>Seleniumfreamworkdesign</name>
 	<url>http://maven.apache.org</url>
- 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
- 
+
 		<!-- Java 17 (Selenium 4.x and TestNG 7.12 need Java 11+) -->
 		<maven.compiler.release>17</maven.compiler.release>
- 
+
 		<!-- Default suite; each profile below overrides it -->
 		<suiteXmlFile>src/main/java/TestSuits/testng.xml</suiteXmlFile>
- 
+
 		<!-- Plugin versions -->
 		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
 		<maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
 	</properties>
- 
+
 	<dependencies>
- 
+
 		<!-- Selenium -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.49.0</version>
 		</dependency>
- 
+
 		<!-- TestNG: compile scope (no <scope> tag) because your test classes and
 			base classes live in src/main/java and import org.testng.* -->
 		<dependency>
@@ -45,21 +42,21 @@ Pom · XML
 			<artifactId>testng</artifactId>
 			<version>7.12.0</version>
 		</dependency>
- 
+
 		<!-- Extent Reports -->
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>5.1.2</version>
 		</dependency>
- 
+
 		<!-- WebDriverManager -->
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
 			<version>6.3.4</version>
 		</dependency>
- 
+
 		<!-- Jackson: uncomment ONLY if your own code reads JSON test data with it.
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -67,9 +64,9 @@ Pom · XML
 			<version>2.22.3</version>
 		</dependency>
 		-->
- 
+
 	</dependencies>
- 
+
 	<build>
 		<plugins>
 			<plugin>
@@ -77,7 +74,7 @@ Pom · XML
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven.compiler.plugin.version}</version>
 			</plugin>
- 
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -90,7 +87,7 @@ Pom · XML
 			</plugin>
 		</plugins>
 	</build>
- 
+
 	<profiles>
 		<!-- mvn test -PRegression -->
 		<profile>
@@ -99,7 +96,7 @@ Pom · XML
 				<suiteXmlFile>src/main/java/TestSuits/testng.xml</suiteXmlFile>
 			</properties>
 		</profile>
- 
+
 		<!-- mvn test -PPurchaseorder -->
 		<profile>
 			<id>Purchaseorder</id>
@@ -107,7 +104,7 @@ Pom · XML
 				<suiteXmlFile>src/main/java/TestSuits/Group.xml</suiteXmlFile>
 			</properties>
 		</profile>
- 
+
 		<!-- mvn test -PErrorhandeling -->
 		<profile>
 			<id>Errorhandeling</id>
@@ -116,7 +113,5 @@ Pom · XML
 			</properties>
 		</profile>
 	</profiles>
- 
+
 </project>
- 
-Claude finished the response
